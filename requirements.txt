@@ -8,3 +8,4 @@ django-auto-prefetching==0.2.11
 drf-registration==0.1.3
 factory-boy==3.2.1
 psycopg2-binary==2.9.3
+mixer==7.2.2
