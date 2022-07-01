@@ -15,3 +15,25 @@ class ArticleModelSerializer(ModelSerializer):
     class Meta:
         model = Article
         fields = '__all__'
+
+
+class UnAuthArticleModelSerializer(ModelSerializer):
+    author = AuthorModelSerializer()
+
+    class Meta:
+        model = Article
+        exclude = ('body', )
+
+
+class AdminAuthorModelSerializer(ModelSerializer):
+    class Meta:
+        model = Author
+        fields = '__all__'
+
+
+class AdminArticleModelSerializer(ModelSerializer):
+    author = AuthorModelSerializer()
+
+    class Meta:
+        model = Article
+        fields = '__all__'
