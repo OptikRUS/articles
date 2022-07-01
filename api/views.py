@@ -1,5 +1,6 @@
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from rest_framework.permissions import IsAdminUser
+from django_auto_prefetching import AutoPrefetchViewSetMixin
 
 from api.models import Author, Article
 from api.serializers import AuthorModelSerializer, ArticleModelSerializer, AdminAuthorModelSerializer, \
@@ -7,12 +8,12 @@ from api.serializers import AuthorModelSerializer, ArticleModelSerializer, Admin
 from api.filters import ArticleFilter
 
 
-class AuthorModelViewSet(ReadOnlyModelViewSet):
+class AuthorModelViewSet(AutoPrefetchViewSetMixin, ReadOnlyModelViewSet):
     queryset = Author.objects.all()
     serializer_class = AuthorModelSerializer
 
 
-class ArticleModelViewSet(ReadOnlyModelViewSet):
+class ArticleModelViewSet(AutoPrefetchViewSetMixin, ReadOnlyModelViewSet):
     queryset = Article.objects.all()
     serializer_class = ArticleModelSerializer
     filterset_class = ArticleFilter
@@ -23,13 +24,13 @@ class ArticleModelViewSet(ReadOnlyModelViewSet):
         return UnAuthArticleModelSerializer
 
 
-class AdminAuthorsViewSet(ModelViewSet):
+class AdminAuthorsViewSet(AutoPrefetchViewSetMixin, ModelViewSet):
     queryset = Author.objects.all()
     serializer_class = AdminAuthorModelSerializer
     permission_classes = [IsAdminUser]
 
 
-class AdminArticlesViewSet(ModelViewSet):
+class AdminArticlesViewSet(AutoPrefetchViewSetMixin, ModelViewSet):
     queryset = Article.objects.all()
     serializer_class = AdminArticleModelSerializer
     filterset_class = ArticleFilter
