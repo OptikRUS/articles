@@ -26,11 +26,10 @@ blocks:
       prologue:
         commands:
           - sem-version python 3.10
-          - sem-service start postgres
+          - sem-service start postgres 11 --username=postgres --password=challenge --db=challenge
           - checkout
           - cache restore
           - pip install -r requirements.txt --cache-dir .pip_cache
-          - docker-compose up
       jobs:
         - name: Tests
           commands:
