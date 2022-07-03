@@ -34,17 +34,12 @@ blocks:
           - sem-service start postgres 11 --username=postgres --password=challenge --db=challenge
           - checkout
           - cache restore
-          - pip install -r requirements.txt --cache-dir .pip_cache
           - python manage.py makemigrations
           - python manage.py migrate
       jobs:
         - name: Tests
           commands:
             - python manage.py test
-      epilogue:
-        always:
-          commands:
-            - test-results publish results.xml
 after_pipeline:
   task:
     jobs:
