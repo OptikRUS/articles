@@ -36,10 +36,10 @@ blocks:
         - name: Tests
           commands:
             - python manage.py test
-            - test-results publish results.xml
 after_pipeline:
   task:
     jobs:
       - name: Tests
         commands:
-          - test-results gen-pipeline-report
+          - python manage.py test
+          - test-results publish results.xml
