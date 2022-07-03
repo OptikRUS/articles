@@ -36,3 +36,4 @@ blocks:
         - name: Tests
           commands:
             - python manage.py test
+            - test-results publish results.xml
