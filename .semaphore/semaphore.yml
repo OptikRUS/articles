@@ -34,4 +34,6 @@ blocks:
         - name: Tests
           commands:
             - python manage.py migrate
+            - manage.py create_authors 500
+            - python manage.py create_articles 500
             - python manage.py test
