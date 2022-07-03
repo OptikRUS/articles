@@ -33,4 +33,5 @@ blocks:
       jobs:
         - name: Tests
           commands:
+            - python manage.py migrate
             - python manage.py test
