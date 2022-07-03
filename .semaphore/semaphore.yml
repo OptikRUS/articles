@@ -4,6 +4,11 @@ agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu2004
+global_job_config:
+  epilogue:
+    always:
+      commands:
+        - '[[ -f report.xml ]] && test-results publish report.xml'
 blocks:
   - name: Install Dependencies
     task:
@@ -36,13 +41,9 @@ blocks:
         - name: Tests
           commands:
             - python manage.py test
-    epilogue:
-      always:
-        commands:
-          - test-results publish junit.xml
 after_pipeline:
   task:
     jobs:
       - name: Publish Results
         commands:
-          - test-results gen-pipeline-report
+          - test-results gen-pipeline-report report.xml
