@@ -30,6 +30,7 @@ blocks:
           - checkout
           - cache restore
           - pip install -r requirements.txt --cache-dir .pip_cache
+          - python manage.py makemigrations
           - python manage.py migrate
       jobs:
         - name: Tests
