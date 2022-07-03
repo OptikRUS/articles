@@ -30,6 +30,11 @@ blocks:
     task:
       prologue:
         commands:
+          - sem-version python 3.10
+          - sem-service start postgres 11 --username=postgres --password=challenge --db=challenge
+          - checkout
+          - cache restore
+          - pip install -r requirements.txt --cache-dir .pip_cache
           - python manage.py makemigrations
           - python manage.py migrate
       jobs:
