@@ -21,17 +21,16 @@ blocks:
           - sem-version python 3.10
           - '# Install Linux dependencies.'
           - sudo apt-get update && sudo apt-get install -y python3-dev && sudo apt-get install default-libmysqlclient-dev
-  - name: Run Code Analysis
+  - name: Run Unit Tests
     task:
       prologue:
         commands:
           - sem-version python 3.10
+          - sem-service start postgres
           - checkout
-          - '# At this point, the cache contains the downloaded packages ...'
           - cache restore
-          - '# ... so pip does the installation much faster.'
           - pip install -r requirements.txt --cache-dir .pip_cache
       jobs:
-        - name: Pylint
+        - name: Tests
           commands:
-            - git ls-files | grep -v 'migrations' | grep -v 'settings.py' | grep -v 'manage.py' | grep -E '.py$' | xargs pylint -E --load-plugins=pylint_django
+            - python manage.py test
