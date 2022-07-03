@@ -14,6 +14,7 @@ blocks:
             - cache restore
             - pip download --cache-dir .pip_cache -r requirements.txt
             - cache store
+            - test-results publish results.xml
       env_vars: []
       prologue:
         commands:
