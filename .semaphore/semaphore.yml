@@ -21,21 +21,6 @@ blocks:
           - sem-version python 3.10
           - '# Install Linux dependencies.'
           - sudo apt-get update && sudo apt-get install -y python3-dev && sudo apt-get install default-libmysqlclient-dev
-  - name: Run Unit Tests
-    task:
-      prologue:
-        commands:
-          - sem-version python 3.10
-          - sem-service start postgres 11 --username=postgres --password=challenge --db=challenge
-          - checkout
-          - cache restore
-          - pip install -r requirements.txt --cache-dir .pip_cache
-          - python manage.py makemigrations
-          - python manage.py migrate
-      jobs:
-        - name: Tests
-          commands:
-            - python manage.py test
 after_pipeline:
   task:
     jobs:
@@ -49,4 +34,3 @@ after_pipeline:
           - python manage.py makemigrations
           - python manage.py migrate
           - python manage.py test
-          - test-results publish results.xml
