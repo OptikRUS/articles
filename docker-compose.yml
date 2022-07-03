@@ -10,17 +10,17 @@ services:
       POSTGRES_DB: "challenge"
     volumes:
       - ./postgres-data/postgres:/var/lib/postgresql/data
-  backend:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - '8000:8000'
-    command: bash -c "
-      while !</dev/tcp/postgres_db/5432; do sleep 1; done; python manage.py migrate
-      && python manage.py create_authors 1000
-      && python manage.py create_articles 1000
-      && python manage.py runserver 0.0.0.0:8000
-      "
-    depends_on:
-      - postgres_db
+#  backend:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    ports:
+#      - '8000:8000'
+#    command: bash -c "
+#      while !</dev/tcp/postgres_db/5432; do sleep 1; done; python manage.py migrate
+#      && python manage.py create_authors 1000
+#      && python manage.py create_articles 1000
+#      && python manage.py runserver 0.0.0.0:8000
+#      "
+#    depends_on:
+#      - postgres_db
