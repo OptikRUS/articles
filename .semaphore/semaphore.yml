@@ -5,9 +5,19 @@ agent:
     type: e1-standard-2
     os_image: ubuntu2004
 blocks:
-  - name: Test
+  - name: Install Dependencies
     task:
-      jobs: []
-      env_vars:
-        - name: SECRET_KEY
-          value: '''django-insecure-$^amm^2k604bm1it^y$zaaj(q9_5-9f8^na^^)mt+vhshd2o!g'''''
+      jobs:
+        - name: pip
+          commands:
+            - '- checkout'
+            - '- cache restore'
+            - '- pip download --cache-dir .pip_cache -r requirements.txt'
+            - '- cache store'
+      env_vars: []
+      prologue:
+        commands:
+          - '# Set the python version.'
+          - '- sem-version python 3.10'
+          - '# Install Linux dependencies.'
+          - '- sudo apt-get update && sudo apt-get install -y python3-dev && sudo apt-get install default-libmysqlclient-dev'
