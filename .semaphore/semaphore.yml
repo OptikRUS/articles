@@ -23,4 +23,6 @@ blocks:
             - 'flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics'
             - flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
             - python manage.py test
-      env_vars: []
+      env_vars:
+        - name: SECRET_KEY
+          value: '''django-insecure-$^amm^2k604bm1it^y$zaaj(q9_5-9f8^na^^)mt+vhshd2o!g'''''
