@@ -14,7 +14,6 @@ blocks:
             - cache restore
             - pip download --cache-dir .pip_cache -r requirements.txt
             - cache store
-            - test-results publish results.xml
       env_vars: []
       prologue:
         commands:
@@ -38,3 +37,9 @@ blocks:
           commands:
             - python manage.py test
             - test-results publish results.xml
+after_pipeline:
+  task:
+    jobs:
+      - name: Tests
+        commands:
+          - test-results gen-pipeline-report
